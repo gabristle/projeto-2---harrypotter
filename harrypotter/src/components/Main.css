@@ -1,0 +1,34 @@
+main{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 700px;
+    height: 400px;
+    background-color: darkslategray;
+    border: double 5px rgb(211, 211, 211);
+    margin-top: -3px;
+}
+
+main img {
+    border: solid 3px rgb(211, 211, 211);
+}
+
+#desc--container{
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+    padding: 5%;
+}
+
+.desc--img-character{
+    height: 200px;
+}
+
+.desc--img-house{
+    height: 50px;
+}
+
+.desc.disabled {
+    display: none;
+}
