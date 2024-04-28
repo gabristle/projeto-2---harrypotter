@@ -52,3 +52,39 @@ header button{
     padding: 2px;
     margin: 5px;
 }
+
+main{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 700px;
+    height: 400px;
+    background-color: darkslategray;
+    border: double 5px rgb(211, 211, 211);
+    margin-top: -3px;
+}
+
+main img {
+    border: solid 3px rgb(211, 211, 211);
+}
+
+#desc--container{
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+    padding: 5%;
+}
+
+.character p{
+    margin: 0.5rem;
+}
+
+.desc--img-character{
+    margin: 1rem;
+    height: 200px;
+}
+
+.desc.disabled {
+    display: none;
+}
