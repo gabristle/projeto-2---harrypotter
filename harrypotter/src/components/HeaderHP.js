@@ -1,34 +1,43 @@
 import './HeaderHP.css';
 import axios from 'axios';
 import logo from './assets/logo.png';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function HeaderHP() {
     const [characterName, setCharacterName] = useState('');
+    const [allCharacters, setAllCharacters] = useState([]);
     const [foundCharacters, setFoundCharacters] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://potterhead-api.vercel.app/api/characters');
+                const characters = response.data;
+                setAllCharacters(characters);
+                setFoundCharacters(characters);
+            } catch (error) {
+                setErrorMessage('Error fetching data');
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const searchCharacter = () => {
         const trimmedName = characterName.trim();
         if (validateSearch(trimmedName)) {
-            axios.get(`https://potterhead-api.vercel.app/api/characters`)
-                .then(response => {
-                    const characters = response.data;
-                    const filteredCharacters = characters.filter(character =>
-                        character.name.toLowerCase().startsWith(trimmedName.toLowerCase())
-                    );
-                    if (filteredCharacters.length > 0) {
-                        setFoundCharacters(filteredCharacters);
-                        setErrorMessage('');
-                    } else {
-                        setFoundCharacters([]);
-                        setErrorMessage(`No characters found starting with "${trimmedName}"`);
-                    }
-                })
-                .catch(error => {
-                    setErrorMessage('Error fetching data');
-                    console.error('Error fetching data:', error);
-                });
+            const filteredCharacters = allCharacters.filter(character =>
+                character.name.toLowerCase().startsWith(trimmedName.toLowerCase())
+            );
+            if (filteredCharacters.length > 0) {
+                setFoundCharacters(filteredCharacters);
+                setErrorMessage('');
+            } else {
+                setFoundCharacters([]);
+                setErrorMessage(`No characters found starting with "${trimmedName}"`);
+            }
         }
     };
 
